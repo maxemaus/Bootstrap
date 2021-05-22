@@ -72,7 +72,7 @@
                                                     <a class="btn btn-info btn-sm" role="button"
                                                        data-toggle="modal" th:attr="data-target='#edit' + ${u.getId()}">Edit</a>
                                                     <div class="modal fade" th:id="${'edit' + u.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
+                                                        <div class="modal-dialog modal-sm" role="document">
                                                             <form th:action="@{/admin/update}" method="post">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -81,7 +81,7 @@
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
-                                                                    <div class="modal-body">
+                                                                    <div class="modal-body justify-content-center">
                                                                         <div class="form-group">
                                                                             <label class="col-form-label">ID:</label>
                                                                             <input type="text" class="form-control" th:value="${u.id}" name="id"/>
