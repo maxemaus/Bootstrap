@@ -17,7 +17,7 @@ public class UserDAOimpl implements UserDAO{
 
     @Override
     public User getUserByName(String name) {
-        Query query = entityManager.createQuery("select u from User u where u.username=:name");
+        Query query = entityManager.createQuery("select u from User u where u.email=:name");
         query.setParameter("name", name);
         return (User) query.getSingleResult();
     }

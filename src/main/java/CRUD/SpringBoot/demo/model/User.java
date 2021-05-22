@@ -18,10 +18,19 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
+
+    @Column
+    private int age;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
@@ -39,6 +48,34 @@ public class User implements UserDetails {
         );
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,12 +84,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Set<Role> getRoles() {
@@ -79,7 +116,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return firstname;
     }
 
     @Override
@@ -106,8 +143,10 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
                 ", roles=" + roles +
                 '}';
     }

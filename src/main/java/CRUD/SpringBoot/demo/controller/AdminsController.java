@@ -22,74 +22,35 @@ public class AdminsController {
     private RoleService roleService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public AdminsController(UserService userService, RoleService roleService) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setRoleService(RoleService roleService) {
         this.roleService = roleService;
     }
 
     @GetMapping("")
     public String getUsers(Model model) {
-        List<User> users = userService.getUsersList();
-        model.addAttribute("users", users);
+        model.addAttribute("users", userService.getUsersList());
+        model.addAttribute("user",new User());
+        model.addAttribute("allRoles", roleService.getRolesList());
         return "users";
     }
 
-    @GetMapping("/{id}/edit")
-    public String getEditForm(@PathVariable Long id, Model model) {
-        User userEdit = userService.findById(id);
-        List<Role> roles = roleService.getRolesList();
-        model.addAttribute("allRoles", roles);
-        model.addAttribute("user", userEdit);
-        return "update";
-    }
 
     @PostMapping("/adduser")
-    public String addUser(@Validated(User.class) @ModelAttribute("user") User user,
-                          @RequestParam("authorities") List<String> values,
-                          BindingResult result) {
-        if(result.hasErrors()) {
-            return "error";
-        }
-        Set<Role> roleSet = userService.getSetOfRoles(values);
-        user.setRoles(roleSet);
+    public String addUser(@Validated(User.class) @ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/admin";
     }
 
     @PostMapping("update")
-    public String editUser(@Validated(User.class) @ModelAttribute("user") User user,
-                           @RequestParam("authorities") List<String> values,
-                           BindingResult result) {
-        if(result.hasErrors()) {
-            return "error";
-        }
-        Set<Role> roleSet = userService.getSetOfRoles(values);
-        user.setRoles(roleSet);
+    public String editUser(@Validated(User.class) @ModelAttribute("user") User user) {
         userService.edit(user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/new")
-    public String newUserForm(Model model) {
-        model.addAttribute(new User());
-        List<Role> roles = roleService.getRolesList();
-        model.addAttribute("allRoles", roles);
-        return "create";
-    }
     @GetMapping("/{id}/delete")
-    public String deleteUser(@PathVariable Long id, Model model) {
-        User user = userService.findById(id);
-        if(user != null) {
-            userService.delete(id);
-            model.addAttribute("message", "user " + user.getUsername() + " successfully deleted");
-        } else {
-            model.addAttribute("message", "no such user");
-        }
-
+    public String deleteUser(@PathVariable Long id) {
+        userService.delete(id);
         return "redirect:/admin";
     }
 
