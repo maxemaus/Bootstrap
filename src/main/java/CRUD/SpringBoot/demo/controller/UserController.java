@@ -24,6 +24,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
+
 
     @GetMapping("/user")
     public String userPage(Model model, Principal principal) {

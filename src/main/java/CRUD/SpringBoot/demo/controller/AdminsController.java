@@ -3,6 +3,7 @@ package CRUD.SpringBoot.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,12 @@ public class AdminsController {
     public String addUser(@Validated(User.class) @ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/admin";
+    }
+
+    @GetMapping("users/{id}")
+    public String getUserById(@PathVariable("id") String id, ModelMap model) {
+        model.addAttribute("user", userService.getUserByName(id));
+        return "/user";
     }
 
     @PostMapping("update")

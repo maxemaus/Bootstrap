@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-//                .loginPage("/login")
+                .loginPage("/login")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
                 .loginProcessingUrl("/login")
