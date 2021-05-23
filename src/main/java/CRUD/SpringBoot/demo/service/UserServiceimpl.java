@@ -57,8 +57,11 @@ public class UserServiceimpl implements UserService, UserDetailsService {
     @Override
     public void add(User user) {
         User userToAdd = new User();
-        userToAdd.setFirstname(user.getUsername());
-        userToAdd.setLastname(passwordEncoder.encode(user.getLastname()));
+        userToAdd.setFirstname(user.getFirstname());
+        userToAdd.setLastname(user.getLastname());
+        userToAdd.setAge(user.getAge());
+        userToAdd.setEmail(user.getEmail());
+        userToAdd.setPassword(user.getPassword());
         userToAdd.setRoles(user.getRoles());
         userDAO.add(userToAdd);
     }

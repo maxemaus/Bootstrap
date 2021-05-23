@@ -13,6 +13,7 @@ import CRUD.SpringBoot.demo.model.User;
 import CRUD.SpringBoot.demo.service.RoleService;
 import CRUD.SpringBoot.demo.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -54,14 +55,7 @@ public class AdminsController {
 
 
     @PostMapping("/update")
-    public String editUser(@Validated(User.class) @ModelAttribute("user") User user,
-                           @RequestParam("authorities") List<String> values,
-                           BindingResult result) {
-        if(result.hasErrors()) {
-            return "error";
-        }
-        Set<Role> roleSet = userService.getSetOfRoles(values);
-        user.setRoles(roleSet);
+    public String update(@ModelAttribute("user") @Valid User user) {
         userService.edit(user);
         return "redirect:/admin";
     }

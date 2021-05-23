@@ -1,6 +1,7 @@
 package CRUD.SpringBoot.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -32,7 +33,8 @@ public class UserController {
 
     @GetMapping("/user")
     public String userPage(Model model, Principal principal) {
-        model.addAttribute("user", userService.getUserByName(principal.getName()));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", userService.getUserByName(user.getEmail()));
         return "user";
     }
 }
