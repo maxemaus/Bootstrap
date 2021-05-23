@@ -1,6 +1,7 @@
 package CRUD.SpringBoot.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -30,9 +31,11 @@ public class AdminsController {
 
     @GetMapping("")
     public String getUsers(Model model) {
+        User admin = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("users", userService.getUsersList());
         model.addAttribute("user",new User());
         model.addAttribute("allRoles", roleService.getRolesList());
+        model.addAttribute("admin", admin);
         return "users";
     }
 
@@ -46,10 +49,11 @@ public class AdminsController {
     @GetMapping("users/{id}")
     public String getUserById(@PathVariable("id") String id, ModelMap model) {
         model.addAttribute("user", userService.getUserByName(id));
-        return "/user";
+        return "/adminuser";
     }
 
-    @PostMapping("update")
+
+    @PostMapping("/update")
     public String editUser(@Validated(User.class) @ModelAttribute("user") User user,
                            @RequestParam("authorities") List<String> values,
                            BindingResult result) {

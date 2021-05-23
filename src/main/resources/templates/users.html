@@ -9,20 +9,19 @@
 </head>
 <body>
     <nav class="navbar navbar-expend-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">admin@mail.ru with roles: ADMIN USER</a>
+    <a class="navbar-brand text-white" th:text="${admin.getEmail()} + ' with roles: ' + ${admin.getRoles()}"></a>
     <a class="nav-link text-white-50 pull-right" href="/logout" style="position: absolute; top: 5px; right: 5px;">logout</a>
     </nav>
-    <div class="container-fluid" style="background-color: #f8f9fa">
+    <div class="container-fluid px-0" style="background-color: #f8f9fa">
         <div class="row no-gutters vh-100">
             <div class="col-2 pt-3 m-0 p-0" style="background-color: white">
-                <ul class="nav flex-column nav-pills">
+                <ul th:object="${admin}" class="nav flex-column nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
+                        <a class="nav-link active" aria-current="page" href="#">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="users/{id}">User</a>
+                        <a class="nav-link" aria-current="page" th:href="@{/admin/users/{id}(id=${admin.getEmail()})}">User</a>
                     </li>
-                </ul>
                 </ul>
             </div>
 
@@ -69,7 +68,7 @@
                                                 <td th:text="${u.email}"></td>
                                                 <td><span th:each="role:${u.roles}"><span th:text="${role.name == 'ROLE_ADMIN'} ? 'ADMIN' : 'USER'"></span></span></td>
                                                 <td>
-                                                    <a class="btn btn-info btn-sm" role="button"
+                                                    <a class="btn btn-info btn-sm text-white" role="button"
                                                        data-toggle="modal" th:attr="data-target='#edit' + ${u.getId()}">Edit</a>
                                                     <div class="modal fade" th:id="${'edit' + u.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
