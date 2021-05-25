@@ -42,7 +42,10 @@ public class AdminsController {
 
 
     @PostMapping("/adduser")
-    public String addUser(@Validated(User.class) @ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") User user,
+                          @RequestParam("authorities") List <String> listId) {
+        Set<Role> lr = userService.getSetOfRoles(listId);
+        user.setRoles(lr);
         userService.add(user);
         return "redirect:/admin";
     }

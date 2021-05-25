@@ -17,7 +17,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String firstname;
 
     @Column(nullable = false)
@@ -32,6 +32,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String email;
 
+    public User() {
+
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -41,19 +45,35 @@ public class User implements UserDetails {
 
     public static UserDetails fromUser(User user) {
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),user.getPassword(),
+                user.getFirstname(),user.getPassword(),
                 user.isAccountNonExpired(), user.isCredentialsNonExpired(),
                 user.isEnabled(), user.isAccountNonLocked(),
                 user.getRoles()
         );
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstname() {
         return firstname;
     }
 
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     public String getLastname() {
         return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public int getAge() {
@@ -76,32 +96,12 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public void setRolesAsString(Role[] roles) {
-        this.roles.addAll(Arrays.asList(roles));
     }
 
     @Override
