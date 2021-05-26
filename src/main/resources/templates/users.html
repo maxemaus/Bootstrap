@@ -111,7 +111,7 @@
                                                                                     <b>Role</b>
                                                                                     <select class="form-control" id="rolesSelect" name="authorities" multiple size="2" style="width: 228px">
                                                                                         <option class="form-control" value="1">ADMIN</option>
-                                                                                        <option class="form-control" value="2">USER</option>
+                                                                                        <option class="form-control" selected value="2">USER</option>
                                                                                     </select>
                                                                                 </label>
                                                                             </div>
@@ -169,9 +169,9 @@
                                                                             <div class="form-group">
                                                                                 <label>
                                                                                     <b>Role</b>
-                                                                                    <select class="form-control" id="rolesSelect" name="authorities" multiple size="2" style="width: 228px" disabled>
-                                                                                        <option class="form-control" value="1">ADMIN</option>
-                                                                                        <option class="form-control" value="2">USER</option>
+                                                                                    <select class="form-control" id="roleDelete" name="authorities" multiple size="2" style="width: 228px" disabled>
+                                                                                        <option class="form-control" value="1" disabled>ADMIN</option>
+                                                                                        <option class="form-control" value="2" disabled>USER</option>
                                                                                     </select>
                                                                                 </label>
                                                                             </div>
@@ -232,7 +232,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><b>Role</b>
-                                                    <select class="form-control" id="rolesSelect" name="authorities" multiple size="2" style="width: 225px">
+                                                    <select class="form-control" id="rolesadd" name="authorities" multiple size="2" style="width: 225px">
                                                         <option th:text="ROLE_ADMIN" th:value="1" class="form-control"></option>
                                                         <option th:text="ROLE_USER" th:value="2" class="form-control"></option>
                                                     </select>
